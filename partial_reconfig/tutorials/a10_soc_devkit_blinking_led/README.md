@@ -1,16 +1,16 @@
-Arria 10 Blinking LED Partial Reconfiguration Tutorial README.TXT
+Arria 10 Blinking LED Partial Reconfiguration Tutorial
 =================================================================
 
-This readme.txt file accompanies the Arria 10 Blinking LED Partial Reconfiguration Tutorial.
+This readme file accompanies the Arria 10 Blinking LED Partial Reconfiguration Tutorial.
 
-This readme.txt file contains the following information:
+This readme file contains the following information:
 
 *  Arria 10 Blinking LED Partial Reconfiguration Tutorial Contents--lists the contents of this tutorial.
 *  Technical Documentation--directs you where to find documentation for Arria 10 Blinking LED Partial Reconfiguration walkthrough.
 *  System Requirements--lists the system requirements.
 
-Arria 10 Blinking LED Partial Reconfiguration Tutorial Contents
-===============================================================
+# Arria 10 Blinking LED Partial Reconfiguration Tutorial Contents
+
 *  flat/ - This directory contains the flat version of the reference design. The following are the design files available in this folder:
 	* top.sv--top-level file containing the flat implementation of the design.
 	* blinking_led.sdc--defines the timing constraints for the project.
@@ -32,19 +32,17 @@ Arria 10 Blinking LED Partial Reconfiguration Tutorial Contents
 	* blinking_led_slow.qsf--Quartus Prime project file containing the assignments and settings for blinking_led_slow persona.
 	* blinking_led_slow.sv--System Verilog file that causes the LEDs to blink slower.
 	* pr_ip.qsys--IP variation file for instantiating PR IP core in the design
-	* setup.tcl--contains configuration that overrides the variable settings in the a10_partial_reconfig.tcl   
+	* setup.tcl--contains configuration for the a10_partial_reconfig.tcl flow script   
 	* top.sv--top-level file containing the PR implementation of the design.
                  
-Technical Documentation
-=======================
+# Technical Documentation
 
 *  AN-770.pdf Application Note provides information about the reference design, and walks you through partially reconfiguring a flat design.
 
 *  This document is available on the GitHub:
    https://github.com/alterasoftware/design-flows/blob/master/partial_reconfig/tutorials/a10_soc_devkit_blinking_led/AN-770.pdf
 
-System Requirements
-===================
+# System Requirements
 
 *  Quartus Prime Pro Edition software version 16.0
 *  Arria 10 SoC development kit
