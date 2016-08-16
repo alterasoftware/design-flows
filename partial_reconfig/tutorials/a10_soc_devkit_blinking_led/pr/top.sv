@@ -1,13 +1,16 @@
-// (C) 2001-2016 Altera Corporation. All rights reserved.
-// Your use of Altera Corporation's design tools, logic functions and other 
-// software and tools, and its AMPP partner logic functions, and any output 
-// files any of the foregoing (including device programming or simulation 
-// files), and any associated documentation or information are expressly subject 
-// to the terms and conditions of the Altera Program License Subscription 
-// Agreement, Altera MegaCore Function License Agreement, or other applicable 
-// license agreement, including, without limitation, that your use is for the 
-// sole purpose of programming logic devices manufactured by Altera and sold by 
-// Altera or its authorized distributors.  Please refer to the applicable 
+// Copyright (C) 2001-2016 Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions
+// and other software and tools, and its AMPP partner logic
+// functions, and any output files from any of the foregoing
+// (including device programming or simulation files), and any
+// associated documentation or information are expressly subject
+// to the terms and conditions of the Intel Program License
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel MegaCore Function License Agreement, or other
+// applicable license agreement, including, without limitation,
+// that your use is for the sole purpose of programming logic
+// devices manufactured by Intel and sold by Intel or its
+// authorized distributors.  Please refer to the applicable
 // agreement for further details.
 
 
@@ -44,15 +47,20 @@ module top (
     ////////////////////////////////////////////////////////////////////////
     // assuming single bit control signal to turn LED 'on'
     ////////////////////////////////////////////////////////////////////////
-    output  wire   led_zero_on;
-    output  wire   led_one_on;
-    output  wire   led_two_on;
-    output  wire   led_three_on;
+    output  reg   led_zero_on;
+    output  reg   led_one_on;
+    output  reg   led_two_on;
+    output  reg   led_three_on;
 
     ////////////////////////////////////////////////////////////////////////
     // clock
     ////////////////////////////////////////////////////////////////////////
     input   wire    clock;
+
+    ////////////////////////////////////////////////////////////////////////
+    // the half speed clock
+    ////////////////////////////////////////////////////////////////////////
+    reg      reg_clock;
 
     localparam COUNTER_TAP = 24;
 
@@ -69,6 +77,19 @@ module top (
     wire            pr_led_two_on;
     wire            pr_led_three_on;
 
+    wire            led_zero_on_w;
+    wire            led_one_on_w;
+    wire            led_two_on_w;
+    wire            led_three_on_w;
+
+    ////////////////////////////////////////////////////////////////////////
+    // The T-Flip Flop clock:
+    ////////////////////////////////////////////////////////////////////////
+    always_ff @(posedge clock)
+    begin
+        reg_clock <= ~reg_clock;
+    end
+
     ////////////////////////////////////////////////////////////////////////
     // The counter:
     ////////////////////////////////////////////////////////////////////////
@@ -78,10 +99,21 @@ module top (
     end
   
     ////////////////////////////////////////////////////////////////////////
+    // Register the LED outputs
+    ////////////////////////////////////////////////////////////////////////
+    always_ff @(posedge clock)
+    begin
+        led_zero_on <= led_zero_on_w;
+		  led_one_on <= led_one_on_w;
+		  led_two_on <= led_two_on_w;
+		  led_three_on <= led_three_on_w;
+    end
+
+    ////////////////////////////////////////////////////////////////////////
     // driving LEDs to show PR as the rest of logic is running
     ////////////////////////////////////////////////////////////////////////
-    assign  led_zero_on   = count[COUNTER_TAP];
-    assign  led_one_on    = count[COUNTER_TAP];
+    assign  led_zero_on_w   = count[COUNTER_TAP];
+    assign  led_one_on_w    = count[COUNTER_TAP];
 
     ////////////////////////////////////////////////////////////////////////
     // When moving from flat design to PR the following two
@@ -94,10 +126,10 @@ module top (
     // reconfiguration. The logic 1 is chosen because LED is active low.
     ////////////////////////////////////////////////////////////////////////
     // The following line is used in PR implementation
-    assign led_two_on    = freeze ? 1'b1 : pr_led_two_on;
+    assign led_two_on_w    = freeze ? 1'b1 : pr_led_two_on;
     
     // The following line is used in PR implementation
-    assign led_three_on  = freeze ? 1'b1 : pr_led_three_on;
+    assign led_three_on_w  = freeze ? 1'b1 : pr_led_three_on;
 
     ////////////////////////////////////////////////////////////////////////
     // instance of the default persona
@@ -122,7 +154,7 @@ module top (
     ////////////////////////////////////////////////////////////////////////
     pr_ip u_pr_ip
     (
-        .clk           (clock),
+        .clk           (reg_clock),
         .nreset        (1'b1),
         .freeze        (freeze),
         .double_pr     (1'b0),            // ignored for JTAG
