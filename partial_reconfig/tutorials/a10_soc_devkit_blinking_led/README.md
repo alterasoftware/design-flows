@@ -44,6 +44,6 @@ This readme file contains the following information:
 
 # System Requirements
 
-*  Quartus Prime Pro Edition software version 16.0
+*  Quartus Prime Pro Edition software version 16.0.2
 *  Arria 10 SoC development kit
 
