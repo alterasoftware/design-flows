@@ -1,5 +1,4 @@
-Arria 10 Blinking LED Partial Reconfiguration Tutorial
-=================================================================
+# Arria 10 Blinking LED Partial Reconfiguration Tutorial
 
 This readme file accompanies the Arria 10 Blinking LED Partial Reconfiguration Tutorial.
 
@@ -9,7 +8,7 @@ This readme file contains the following information:
 *  Technical Documentation--directs you where to find documentation for Arria 10 Blinking LED Partial Reconfiguration walkthrough.
 *  System Requirements--lists the system requirements.
 
-# Arria 10 Blinking LED Partial Reconfiguration Tutorial Contents
+## Arria 10 Blinking LED Partial Reconfiguration Tutorial Contents
 
 *  flat/ - This directory contains the flat version of the reference design. The following are the design files available in this folder:
 	* top.sv--top-level file containing the flat implementation of the design.
@@ -35,14 +34,12 @@ This readme file contains the following information:
 	* setup.tcl--contains configuration for the a10_partial_reconfig.tcl flow script   
 	* top.sv--top-level file containing the PR implementation of the design.
                  
-# Technical Documentation
+## Technical Documentation
 
 *  AN-770.pdf Application Note provides information about the reference design, and walks you through partially reconfiguring a flat design.
+*  This document is available on the GitHub: [here](AN-770.pdf)
 
-*  This document is available on the GitHub:
-   https://github.com/alterasoftware/design-flows/blob/master/partial_reconfig/tutorials/a10_soc_devkit_blinking_led/AN-770.pdf
-
-# System Requirements
+## System Requirements
 
 *  Quartus Prime Pro Edition software version 16.0.2
 *  Arria 10 SoC development kit
