@@ -20,3 +20,4 @@ set_global_assignment -name TOP_LEVEL_ENTITY blinking_slow_led
 set_global_assignment -name SYSTEMVERILOG_FILE blinking_slow_led.sv
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 
+set_global_assignment -name REVISION_TYPE PR_Syn

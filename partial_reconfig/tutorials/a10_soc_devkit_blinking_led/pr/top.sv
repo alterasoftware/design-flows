@@ -28,21 +28,22 @@
 `timescale 1 ps / 1 ps
 `default_nettype none
 
-module top (
+module top
+    (
 
-    ////////////////////////////////////////////////////////////////////////
-    // Control signals for the LEDs
-    ////////////////////////////////////////////////////////////////////////
-    led_zero_on,
-    led_one_on,
-    led_two_on,
-    led_three_on,
+     ////////////////////////////////////////////////////////////////////////
+     // Control signals for the LEDs
+     ////////////////////////////////////////////////////////////////////////
+     led_zero_on,
+     led_one_on,
+     led_two_on,
+     led_three_on,
 
-    ////////////////////////////////////////////////////////////////////////
-    // clock
-    ////////////////////////////////////////////////////////////////////////
-    clock
-);
+     ////////////////////////////////////////////////////////////////////////
+     // clock
+     ////////////////////////////////////////////////////////////////////////
+     clock
+     );
 
     ////////////////////////////////////////////////////////////////////////
     // assuming single bit control signal to turn LED 'on'
@@ -55,32 +56,32 @@ module top (
     ////////////////////////////////////////////////////////////////////////
     // clock
     ////////////////////////////////////////////////////////////////////////
-    input   wire    clock;
+    input   wire  clock;
 
     ////////////////////////////////////////////////////////////////////////
     // the half speed clock
     ////////////////////////////////////////////////////////////////////////
-    reg      reg_clock;
+    reg           reg_clock;
 
     localparam COUNTER_TAP = 24;
 
     ////////////////////////////////////////////////////////////////////////
     // the 32-bit counter
     ////////////////////////////////////////////////////////////////////////
-    reg      [31:0] count;
+    reg [31:0]    count;
 
     ////////////////////////////////////////////////////////////////////////
     // wire declarations
     ////////////////////////////////////////////////////////////////////////
-    wire            freeze;          // freeze is not used until design is changed to PR
-    wire      [2:0] pr_ip_status;
-    wire            pr_led_two_on;
-    wire            pr_led_three_on;
+    wire          freeze;          // freeze is not used until design is changed to PR
+    wire [2:0]    pr_ip_status;
+    wire          pr_led_two_on;
+    wire          pr_led_three_on;
 
-    wire            led_zero_on_w;
-    wire            led_one_on_w;
-    wire            led_two_on_w;
-    wire            led_three_on_w;
+    wire          led_zero_on_w;
+    wire          led_one_on_w;
+    wire          led_two_on_w;
+    wire          led_three_on_w;
 
     ////////////////////////////////////////////////////////////////////////
     // The T-Flip Flop clock:
@@ -97,16 +98,16 @@ module top (
     begin
         count <= count + 1;
     end
-  
+    
     ////////////////////////////////////////////////////////////////////////
     // Register the LED outputs
     ////////////////////////////////////////////////////////////////////////
     always_ff @(posedge clock)
     begin
         led_zero_on <= led_zero_on_w;
-		  led_one_on <= led_one_on_w;
-		  led_two_on <= led_two_on_w;
-		  led_three_on <= led_three_on_w;
+        led_one_on <= led_one_on_w;
+        led_two_on <= led_two_on_w;
+        led_three_on <= led_three_on_w;
     end
 
     ////////////////////////////////////////////////////////////////////////
@@ -135,34 +136,33 @@ module top (
     // instance of the default persona
     ////////////////////////////////////////////////////////////////////////
     blinking_led u_blinking_led
-    (
-//      .led_two_on    (led_two_on),       // used in flat implementation
-        .led_two_on    (pr_led_two_on),    // used in PR implementation
+        (
+         //      .led_two_on    (led_two_on),       // used in flat implementation
+         .led_two_on    (pr_led_two_on),    // used in PR implementation
 
-//      .led_three_on  (led_three_on),     // used in flat implementation
-        .led_three_on  (pr_led_three_on),  // used in PR implementation
+         //      .led_three_on  (led_three_on),     // used in flat implementation
+         .led_three_on  (pr_led_three_on),  // used in PR implementation
 
-        .clock         (clock)
-    );
+         .clock         (clock)
+         );
 
     ////////////////////////////////////////////////////////////////////////
-    // when moving from flat design to PR then the following
+            // when moving from flat design to PR then the following
     // pr_ip needs to be instantiated in order to be able to
     // partially reconfigure the design.
     // 
     // This tutorial implements PR over JTAG
     ////////////////////////////////////////////////////////////////////////
     pr_ip u_pr_ip
-    (
-        .clk           (reg_clock),
-        .nreset        (1'b1),
-        .freeze        (freeze),
-        .double_pr     (1'b0),            // ignored for JTAG
-        .pr_start      (1'b0),            // ignored for JTAG
-        .status        (pr_ip_status),
-        .data          (16'b0),
-        .data_valid    (1'b0),
-        .data_ready    ()
-    );
+        (
+         .clk           (reg_clock),
+         .nreset        (1'b1),
+         .freeze        (freeze),
+         .pr_start      (1'b0),            // ignored for JTAG
+         .status        (pr_ip_status),
+         .data          (16'b0),
+         .data_valid    (1'b0),
+         .data_ready    ()
+         );
 
 endmodule

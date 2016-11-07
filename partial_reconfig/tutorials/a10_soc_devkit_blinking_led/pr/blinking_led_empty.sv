@@ -21,15 +21,16 @@
 `timescale 1 ps / 1 ps
 `default_nettype none
 
-module blinking_led_empty (
+module blinking_led_empty
+    (
 
-    // Control signals for the LEDs
-    led_two_on,
-    led_three_on,
+     // Control signals for the LEDs
+     led_two_on,
+     led_three_on,
 
-    // clock
-    clock
-);
+     // clock
+     clock
+     );
 
     // Control signal to turn LED 'on'
     output  wire    led_two_on;

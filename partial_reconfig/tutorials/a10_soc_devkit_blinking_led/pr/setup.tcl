@@ -18,15 +18,15 @@
 # SETUP CONFIGURTION SCRIPT
 ###############################################################################
 # Define the name of the project.
-define_project blinking_led_pr
+define_project blinking_led
 
 # Define the base revision name. This revision represents the static
 # region of the design
-define_base_revision blinking_led_pr
+define_base_revision blinking_led
 
 # Define each of the partial reconfiguration implementation revisions
 define_pr_revision -impl_rev_name blinking_led_pr_alpha \
-	-impl_block [list pr_partition blinking_led]
+	-impl_block [list pr_partition blinking_led_default]
 
 define_pr_revision -impl_rev_name blinking_led_pr_bravo \
 	-impl_block [list pr_partition blinking_slow_led]
