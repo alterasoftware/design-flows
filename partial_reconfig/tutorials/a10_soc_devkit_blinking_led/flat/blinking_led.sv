@@ -21,15 +21,15 @@
 `timescale 1 ps / 1 ps
 `default_nettype none
 
-module blinking_led (
+module blinking_led
+    (
+     // Control signals for the LEDs
+     led_two_on,
+     led_three_on,
 
-    // Control signals for the LEDs
-    led_two_on,
-    led_three_on,
-
-    // clock 
-    clock
-);
+     // clock 
+     clock
+     );
 
     // assuming single bit control signal to turn LED 'on'
     output  wire    led_two_on;
@@ -39,7 +39,7 @@ module blinking_led (
     input   wire    clock;
 
     // the 32-bit counter
-    reg      [31:0] count;
+    reg [31:0]      count;
 
     localparam COUNTER_TAP = 23;
 
@@ -49,7 +49,7 @@ module blinking_led (
         count <= count + 1;
     end
 
-   assign  led_two_on    = count[COUNTER_TAP];
-   assign  led_three_on  = ~count[COUNTER_TAP];
+    assign  led_two_on    = count[COUNTER_TAP];
+    assign  led_three_on  = ~count[COUNTER_TAP];
 
 endmodule
