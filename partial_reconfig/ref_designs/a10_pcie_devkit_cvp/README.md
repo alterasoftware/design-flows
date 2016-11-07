@@ -6,6 +6,11 @@ This readme file contains the following information:
 
 *  System Requirements--lists the system requirements.
 
+## Technical Documentation
+
+*  AN-784.pdf Application Note provides information about the reference design, and walks you through using the design.
+*  This document is available on the GitHub: [here](AN-784.pdf)
+
 ## System Requirements
 
 *  Quartus Prime Pro Edition software version 16.1
